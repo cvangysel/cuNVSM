@@ -5,6 +5,21 @@ This repository will host the code used in our paper *Neural Vector Spaces for U
 
 The validate/test splits can be found [here](resources/adhoc-splits).
 
+Citation
+--------
+
+If you use cuNVSM to produce results for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1708.02702):
+
+```
+@article{VanGysel2017nvsm,
+  title={Neural Vector Spaces for Unsupervised Information Retrieval},
+  author={Van Gysel, Christophe and de Rijke, Maarten and Kanoulas, Evangelos},
+  journal={arXiv preprint arXiv:1708.02702},
+  year={2017},
+}
+```
+
+
 License
 -------
 
