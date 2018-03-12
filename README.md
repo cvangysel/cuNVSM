@@ -11,7 +11,7 @@ Citation
 If you use cuNVSM to produce results for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1708.02702):
 
 ```
-@article{VanGysel2017nvsm,
+@article{VanGysel2018nvsm,
   title={Neural Vector Spaces for Unsupervised Information Retrieval},
   author={Van Gysel, Christophe and de Rijke, Maarten and Kanoulas, Evangelos},
   publisher={ACM},
