@@ -1,9 +1,7 @@
 cuNVSM
 ======
 
-<aside class="warning">
-You need a CUDA-compatible GPU (compute capability 5.2+) to use this software.
-</aside>
+:warning: You need a CUDA-compatible GPU (compute capability 5.2+) to use this software.
 
 cuNVSM is a C++/CUDA implementation of state-of-the-art [NVSM](https://arxiv.org/abs/1708.02702) and [LSE](https://arxiv.org/pdf/1608.07253.pdf) representation learning algorithms.
 
