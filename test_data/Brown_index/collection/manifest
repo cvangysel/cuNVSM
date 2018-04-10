@@ -1,0 +1,10 @@
+<parameters>
+	<forward>
+		<field>docno</field>
+	</forward>
+	<reverse>
+		<field>docno</field>
+	</reverse>
+	<storeDocs>false</storeDocs>
+</parameters>
+

@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package lse;
+
+// Model, training and data configuration.
+
+message ModelDesc {
+    int32 word_repr_size = 1;
+    int32 entity_repr_size = 2;
+
+    message TransformDesc {
+        enum Nonlinearity {
+            TANH = 0;
+            HARD_TANH = 1;
+        }
+
+        bool batch_normalization = 1;
+        Nonlinearity nonlinearity = 2;
+    }
+
+    TransformDesc transform_desc = 3;
+
+    bool clip_sigmoid = 4;
+
+    bool bias_negative_samples = 5;
+
+    bool l2_normalize_phrase_reprs = 6;
+    bool l2_normalize_entity_reprs = 7;
+}
+
+message TrainConfig {
+    int32 num_epochs = 1;
+    int32 batch_size = 2;
+
+    int32 window_size = 3;
+    int32 num_random_entities = 4;
+
+    float regularization_lambda = 5;
+    float learning_rate = 6;
+
+    enum UpdateMethod {
+        SGD = 0;
+        ADAGRAD = 1;
+        ADAM = 2;
+    }
+
+    message UpdateMethodConf {
+        UpdateMethod type = 1;
+
+        message AdamConf {
+            enum AdamMode {
+                NONE = 0;
+                SPARSE = 1;
+                DENSE_UPDATE = 2;
+                DENSE_UPDATE_DENSE_VARIANCE = 3;
+            }
+
+            AdamMode mode = 1;
+        }
+
+        AdamConf adam_conf = 2;
+    }
+
+    UpdateMethodConf update_method = 7;
+
+    bool no_shuffle = 8;
+
+    float text_entity_weight = 9;
+    float entity_entity_weight = 10;
+    float term_term_weight = 11;
+}
+
+message DataConfig {
+    string repository_path = 1;
+
+    int32 max_vocabulary_size = 2;
+
+    int32 min_document_frequency = 3;
+    int32 max_document_frequency = 4;
+
+    bool include_oov = 5;
+
+    string similarity_path = 6;
+}
+
+// Model serialization.
+
+message Metadata {
+    message TermInfo {
+        int32 index_term_id = 1;
+        int32 model_term_id = 2;
+        int32 term_frequency = 3;
+    }
+
+    message ObjectInfo {
+        int32 index_object_id = 1;
+        int32 model_object_id = 2;
+    }
+
+    repeated TermInfo term = 1;
+    repeated ObjectInfo object = 2;
+
+    int32 total_terms = 3;
+}

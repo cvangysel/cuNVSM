@@ -1,0 +1,18 @@
+include(FindPackageHandleStandardArgs)
+
+find_path(PERFTOOLS_INCLUDE_DIR google/heap-profiler.h)
+find_library(PERFTOOLS_PROFILER_LIBRARY profiler)
+find_library(PERFTOOLS_TCMALLOC_LIBRARY tcmalloc)
+
+find_package_handle_standard_args(
+    PerfTools
+    DEFAULT_MSG
+    PERFTOOLS_INCLUDE_DIR
+    PERFTOOLS_PROFILER_LIBRARY
+    PERFTOOLS_TCMALLOC_LIBRARY)
+
+if(PERFTOOLS_FOUND)
+  set(PERFTOOLS_INCLUDE_DIRS ${PERFTOOLS_INCLUDE_DIR})
+  set(PERFTOOLS_LIBRARIES ${PERFTOOLS_PROFILER_LIBRARY} ${PERFTOOLS_TCMALLOC_LIBRARY})
+  message(STATUS "Found PerfTools    (include: ${PERFTOOLS_INCLUDE_DIR}, library: ${PERFTOOLS_LIBRARIES})")
+endif()
