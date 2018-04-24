@@ -133,7 +133,7 @@ bool GradientCheckFn<ModelT>::operator()(
 }
 
 // Explicit instantiations.
-template class GradientCheckFn<LSE>;
+template class GradientCheckFn<DefaultModel>;
 template class GradientCheckFn<Model<EntityEntity::Objective>>;
 template class GradientCheckFn<Model<TermTerm::Objective>>;
 template class GradientCheckFn<Model<TextEntityEntityEntity::Objective>>;

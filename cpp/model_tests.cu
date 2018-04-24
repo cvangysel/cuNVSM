@@ -50,7 +50,7 @@ INSTANTIATE_TEST_CASE_P(RandomSeed,
                                                            1 /* step */));
 
 TEST_P(ParamsTest, get_average_representations) {
-    Representations<FloatT, LSE::WordIdxType> representations(
+    Representations<FloatT, DefaultModel::WordIdxType> representations(
         WORD_REPRS,
         4, /* num_objects */
         3, /* repr_size */
@@ -60,8 +60,8 @@ TEST_P(ParamsTest, get_average_representations) {
     representations.initialize(&rng_);
     initialize_range_representations(&representations);
 
-    std::unique_ptr<device_matrix<LSE::WordIdxType>> indices(
-        device_matrix<LSE::WordIdxType>::create_column(
+    std::unique_ptr<device_matrix<DefaultModel::WordIdxType>> indices(
+        device_matrix<DefaultModel::WordIdxType>::create_column(
             DefaultStream::get()->next(),
             {1, 3, 2,
              0, 3, 1}));
@@ -83,7 +83,7 @@ TEST_P(ParamsTest, get_average_representations) {
 }
 
 TEST_P(ParamsTest, get_weighted_average_representations) {
-    Representations<FloatT, LSE::WordIdxType> representations(
+    Representations<FloatT, DefaultModel::WordIdxType> representations(
         WORD_REPRS,
         4, /* num_objects */
         3, /* repr_size */
@@ -93,14 +93,14 @@ TEST_P(ParamsTest, get_weighted_average_representations) {
     representations.initialize(&rng_);
     initialize_range_representations(&representations);
 
-    std::unique_ptr<device_matrix<LSE::WordIdxType>> indices(
-        device_matrix<LSE::WordIdxType>::create_column(
+    std::unique_ptr<device_matrix<DefaultModel::WordIdxType>> indices(
+        device_matrix<DefaultModel::WordIdxType>::create_column(
             DefaultStream::get()->next(),
             {1, 3, 2,
              0, 3, 1}));
 
-    std::unique_ptr<device_matrix<LSE::FloatT>> indices_weights(
-        device_matrix<LSE::FloatT>::create_column(
+    std::unique_ptr<device_matrix<DefaultModel::FloatT>> indices_weights(
+        device_matrix<DefaultModel::FloatT>::create_column(
             DefaultStream::get()->next(),
             {0.5, 0.3, 0.1,
              1.0, 2.0, 0.2}));
@@ -126,7 +126,7 @@ TEST_P(ParamsTest, generate_labels) {
     const size_t num_words = 100;
     const size_t num_objects = 5000;
 
-    LSE lse(num_words, num_objects,
+    DefaultModel lse(num_words, num_objects,
             ParseProto<lse::ModelDesc>("word_repr_size: 64 entity_repr_size: 32"),
             ParseProto<lse::TrainConfig>("update_method: < type: SGD >"));
 
@@ -135,9 +135,9 @@ TEST_P(ParamsTest, generate_labels) {
     const size_t num_labels = 5;
     const size_t num_negative_labels = 10;
 
-    std::vector<LSE::EntityIdxType> labels = {1, 2, 3, 4, 5};
+    std::vector<DefaultModel::EntityIdxType> labels = {1, 2, 3, 4, 5};
 
-    std::vector<LSE::EntityIdxType> instance_entities;
+    std::vector<DefaultModel::EntityIdxType> instance_entities;
 
     lse.objective_->generate_labels(
         labels.data(),
@@ -151,7 +151,7 @@ TEST_P(ParamsTest, generate_labels) {
 }
 
 TEST_P(ParamsTest, Representations_update) {
-    Representations<FloatT, LSE::WordIdxType> representations(
+    Representations<FloatT, DefaultModel::WordIdxType> representations(
         WORD_REPRS,
         4, /* num_objects */
         3, /* repr_size */
@@ -243,7 +243,7 @@ TEST_P(ParamsTest, Representations_update) {
 }
 
 TEST_P(ParamsTest, RepresentationsStorage_update_dense) {
-    RepresentationsStorage<FloatT, LSE::WordIdxType> representations(
+    RepresentationsStorage<FloatT, DefaultModel::WordIdxType> representations(
         4, /* num_objects */
         3, /* repr_size */
         DefaultStream::get());
@@ -347,7 +347,7 @@ TEST_P(ParamsTest, Transform_backward) {
 
     model_desc.set_bias_negative_samples(true);
 
-    LSE lse(5, /* num_words */
+    DefaultModel lse(5, /* num_words */
             3, /* num_objects */
             model_desc,
             ParseProto<lse::TrainConfig>(

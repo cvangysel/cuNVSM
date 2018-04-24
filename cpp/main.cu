@@ -364,15 +364,15 @@ class DumpModelFn {
 };
 
 template <typename ObjectiveT>
-std::pair<size_t, LSE::FloatT> iterate_data(const lse::TrainConfig& train_config,
-                                            const bool backpropagate,
-                                            Model<ObjectiveT>* const model,
-                                            DataSource<typename ObjectiveT::BatchType>* const data_source,
-                                            typename ObjectiveT::BatchType* const batch,
-                                            RNG* const rng,
-                                            const DumpModelFn<ObjectiveT>* const dump_model_fn = nullptr) {
+std::pair<size_t, DefaultModel::FloatT> iterate_data(const lse::TrainConfig& train_config,
+                                                     const bool backpropagate,
+                                                     Model<ObjectiveT>* const model,
+                                                     DataSource<typename ObjectiveT::BatchType>* const data_source,
+                                                     typename ObjectiveT::BatchType* const batch,
+                                                     RNG* const rng,
+                                                     const DumpModelFn<ObjectiveT>* const dump_model_fn = nullptr) {
     size_t epoch_num_batches = 0;
-    LSE::FloatT agg_cost = 0.0;
+    DefaultModel::FloatT agg_cost = 0.0;
 
     const std::chrono::time_point<std::chrono::steady_clock> iteration_start =
         std::chrono::steady_clock::now();
@@ -521,7 +521,7 @@ void train(const lse::ModelDesc& model_desc,
 
     cudaDeviceSynchronize();
 
-    LOG(INFO) << "Initialized LSE with " << model.num_parameters() << " parameters "
+    LOG(INFO) << "Initialized cuNVSM with " << model.num_parameters() << " parameters "
               << "for training on " << vocabulary_size << " words and " << corpus_size << " objects.";
 
     if (!FLAGS_output.empty()) {
@@ -539,11 +539,11 @@ void train(const lse::ModelDesc& model_desc,
     std::unique_ptr<typename ObjectiveT::BatchType> batch(
         BatchHandler<typename ObjectiveT::BatchType>::create(train_config));
 
-    std::vector<LSE::FloatT> epoch_costs;
+    std::vector<DefaultModel::FloatT> epoch_costs;
 
     if (FLAGS_compute_initial_cost) {
         size_t epoch_num_batches;
-        LSE::FloatT agg_cost;
+        DefaultModel::FloatT agg_cost;
 
         std::tie(epoch_num_batches, agg_cost) = iterate_data<ObjectiveT>(
             train_config,
@@ -555,7 +555,7 @@ void train(const lse::ModelDesc& model_desc,
 
         data_source->reset();
 
-        const LSE::FloatT initial_cost = agg_cost / epoch_num_batches;
+        const DefaultModel::FloatT initial_cost = agg_cost / epoch_num_batches;
         epoch_costs.push_back(initial_cost);
 
         LOG(INFO) << "Epoch #0 (initial): cost=" << epoch_costs;
@@ -582,7 +582,7 @@ void train(const lse::ModelDesc& model_desc,
         nvtxRangePush("Epoch");
 
         size_t epoch_num_batches;
-        LSE::FloatT agg_cost;
+        DefaultModel::FloatT agg_cost;
 
         std::tie(epoch_num_batches, agg_cost) = iterate_data<ObjectiveT>(
             train_config,
@@ -603,7 +603,7 @@ void train(const lse::ModelDesc& model_desc,
 
         const float64 batches_per_second = num_batches / total_duration.count();
 
-        const LSE::FloatT epoch_cost = agg_cost / epoch_num_batches;
+        const DefaultModel::FloatT epoch_cost = agg_cost / epoch_num_batches;
         epoch_costs.push_back(epoch_cost);
 
         LOG(INFO) << "Epoch #" << epoch << ": "

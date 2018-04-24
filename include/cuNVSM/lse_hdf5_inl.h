@@ -8,7 +8,7 @@ void write_to_hdf5(const ModelBase<FloatT, WordIdxType, EntityIdxType>& model,
 
     for (const auto& pair : model.get_data()) {
         const std::string& name = pair.first;
-        const device_matrix<LSE::FloatT>* const matrix = pair.second;
+        const device_matrix<DefaultModel::FloatT>* const matrix = pair.second;
 
         CHECK_NOTNULL(matrix);
 

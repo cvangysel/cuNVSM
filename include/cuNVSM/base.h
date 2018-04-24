@@ -61,8 +61,6 @@ typedef std::minstd_rand0 RNG;
   {}                                                      \
   int _____________SYNTACTIC_SUGAR[0] /* To avoid warnings about additional semi-colon */
 
-#define __LSE_DEBUG 0
-
 #ifndef FLOATING_POINT_TYPE
 #pragma error("FLOATING_POINT_TYPE macro should be set.")
 #endif

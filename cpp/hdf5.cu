@@ -24,7 +24,7 @@ struct GetH5PredType<float64> {
 };
 
 void write_to_hdf5(const std::string& name,
-                   const device_matrix<typename LSE::FloatT>& matrix,
+                   const device_matrix<typename DefaultModel::FloatT>& matrix,
                    H5::H5File* const file) {
     PROFILE_FUNCTION();
 
@@ -36,7 +36,7 @@ void write_to_hdf5(const std::string& name,
 
     VLOG(3) << "Data dimensionality: " << dim << ".";
 
-    H5::FloatType datatype(GetH5PredType<LSE::FloatT>::type());
+    H5::FloatType datatype(GetH5PredType<DefaultModel::FloatT>::type());
     datatype.setOrder(H5T_ORDER_LE);
 
     H5::DataSet dataset = file->createDataSet(name, datatype, dataspace);
@@ -48,6 +48,6 @@ void write_to_hdf5(const std::string& name,
 
     VLOG(3) << "Writing data to HDF5.";
 
-    dataset.write(data, GetH5PredType<LSE::FloatT>::type());
+    dataset.write(data, GetH5PredType<DefaultModel::FloatT>::type());
     delete [] data;
 }

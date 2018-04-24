@@ -130,7 +130,8 @@ class Model : public ModelBase<typename ObjectiveT::FloatT,
   DISALLOW_COPY_AND_ASSIGN(Model);
 };
 
-typedef Model<TextEntity::Objective> LSE;
+typedef Model<TextEntity::Objective> DefaultModel;
+typedef DefaultModel LSE;
 
 #include "objective.h"
 

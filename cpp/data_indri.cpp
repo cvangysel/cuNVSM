@@ -271,7 +271,7 @@ class StochasticInstanceGenerator : public InstanceGeneratorBase {
           num_terms += terms.size();
       }
 
-      LOG(INFO) << "Unable to generate n-grams for " << num_document_too_short << " as they were too short.";
+      LOG(INFO) << "Unable to generate n-grams for " << num_document_too_short << " documents as they were too short.";
 
       *const_cast<float64*>(&avg_document_length_) =
           num_terms / static_cast<float64>(term_lists_.size());

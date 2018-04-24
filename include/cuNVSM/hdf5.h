@@ -10,7 +10,7 @@
 #include "cuNVSM/cuda_utils.h"
 
 void write_to_hdf5(const std::string& name,
-                   const device_matrix<typename LSE::FloatT>& matrix,
+                   const device_matrix<typename DefaultModel::FloatT>& matrix,
                    H5::H5File* const file);
 
 template <typename FloatT, typename WordIdxType, typename EntityIdxType>
