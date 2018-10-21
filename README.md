@@ -3,7 +3,7 @@ cuNVSM
 
 :warning: You need a CUDA-compatible GPU (compute capability 5.2+) to use this software.
 
-cuNVSM is a C++/CUDA implementation of state-of-the-art [NVSM](https://arxiv.org/abs/1708.02702) and [LSE](https://arxiv.org/pdf/1608.07253.pdf) representation learning algorithms.
+cuNVSM is a C++/CUDA implementation of state-of-the-art [NVSM](https://arxiv.org/abs/1708.02702) and [LSE](https://arxiv.org/pdf/1608.07253.pdf) representation learning algorithms. It also supports injecting a priori knowledge of document/document similarity, as was the main subject of study in the [CIKM2018](https://staff.fnwi.uva.nl/m.derijke/wp-content/papercite-data/pdf/van-gysel-mix-n-match-2018.pdf) paper on product substitutability.
 
 It integrates conveniently with the [Indri search engine](https://www.lemurproject.org/indri.php) and model parameters are estimated directly from indexes created by Indri. Model parameters are stored in the open [HDF5](https://support.hdfgroup.org/HDF5) format. A lightweight Python module `nvsm`, provided as part of this toolkit, allows querying the models and more.
 
@@ -68,7 +68,7 @@ For more information, see the [`train_nvsm`](scripts/functions.sh#L369) function
 Citation
 --------
 
-If you use cuNVSM to produce results for your scientific publication, please refer to our [TOIS paper](https://arxiv.org/abs/1708.02702):
+If you use cuNVSM to produce results for your scientific publication, please refer to our [TOIS](https://arxiv.org/abs/1708.02702) and [CIKM 2018](https://staff.fnwi.uva.nl/m.derijke/wp-content/papercite-data/pdf/van-gysel-mix-n-match-2018.pdf) papers:
 
 ```
 @article{VanGysel2018nvsm,
@@ -78,9 +78,18 @@ If you use cuNVSM to produce results for your scientific publication, please ref
   journal={TOIS},
   year={2018},
 }
+
+@inproceedings{VanGysel2018substitutability,
+  title={Mix ’n Match: Integrating Text Matching and Product Substitutability within Product Search},
+  author={Van Gysel, Christophe and de Rijke, Maarten and Kanoulas, Evangelos},
+  booktitle={CIKM},
+  volume={2018},
+  year={2018},
+  organization={ACM}
+}
 ```
 
-The validate/test splits used in the 2018 TOIS paper can be found [here](resources/adhoc-splits).
+The validate/test splits used in the 2018 TOIS paper can be found [here](resources/adhoc-splits). The test collections for the 2018 CIKM paper can be found [here](PRODUCT_SUBSTITUTABILITY.md).
 
 The toolkit also contains an implementation of the LSE model described in the following [CIKM paper](https://arxiv.org/pdf/1608.07253.pdf):
 
