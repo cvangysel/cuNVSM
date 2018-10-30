@@ -6,7 +6,7 @@ Data collection
 
 We use the [Amazon product data](http://jmcauley.ucsd.edu/data/amazon) published by McAuley et al. at SIGIR 2015. You can obtain the data by following the [provided instructions](http://jmcauley.ucsd.edu/data/amazon/amazon_readme.txt).
 
-We make use of the `Pet_Supplies`, `Sports_and_Outdoors`, `Toys_and_Games` and `Electronics` reviews and metadata data files (full, not the 5-core). For more information, see the [CIKM 2016 paper](https://arxiv.org/pdf/1608.07253.pdf) where the evaluation sets where first introduced.
+We make use of the `Pet_Supplies`, `Sports_and_Outdoors`, `Toys_and_Games` and `Electronics` reviews and metadata data files (full, not the 5-core). For more information, see the [CIKM 2016 paper](https://arxiv.org/pdf/1608.07253.pdf) where the evaluation sets were first introduced.
 
 |      | Pet Supplies | Sports & Outdoors | Toys & Games | Electronics |
 | ---- | ------------------ | ---------------------------- | -------------- | --------------------- |
@@ -18,7 +18,7 @@ We make use of the `Pet_Supplies`, `Sports_and_Outdoors`, `Toys_and_Games` and `
 Usage
 -----
 
-To replicate the experiments of the paper on **integrating text matching and product substitutability**, build an Indri index where every product is respresented by the union of its description and its reviews as described in the experimental setup section of the [CIKM 2018 paper](https://staff.fnwi.uva.nl/m.derijke/wp-content/papercite-data/pdf/van-gysel-mix-n-match-2018.pdf). Secondly, follow the tutorial for the [2018 TOIS paper](https://arxiv.org/abs/1708.02702) on neural vector spaces that can be found [here](TUTORIAL.md).
+To replicate the experiments of the paper on **integrating text matching and product substitutability**, build an Indri index where every product is represented by the union of its description and its reviews as described in the experimental setup section of the [CIKM 2018 paper](https://staff.fnwi.uva.nl/m.derijke/wp-content/papercite-data/pdf/van-gysel-mix-n-match-2018.pdf). Secondly, follow the tutorial for the [2018 TOIS paper](https://arxiv.org/abs/1708.02702) on neural vector spaces that can be found [here](TUTORIAL.md).
 
 The substitution relations (or, in fact, any document/document similarity relations) can be passed to [`cuNVSMTrainModel`](https://github.com/cvangysel/cuNVSM/blob/master/cpp/main.cu#L657) as a second positional argument that follows the path to the Indri index. The [`--entity_similarity_weight`](https://github.com/cvangysel/cuNVSM/blob/master/cpp/main.cu#L73) flag controls the mixture weight between text and substitutability signals.
 
